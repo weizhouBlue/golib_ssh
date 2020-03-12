@@ -21,8 +21,9 @@ func Test_pwd(t *testing.T){
     }
 
 
-    if out, err , e:= c.ExecCmd("ls /" , "") ; e!=nil {
+    if out, err , e:= c.ExecCmd("lss /" , "") ; e!=nil {
         fmt.Printf("failed 2 , %v \n" , e )
+        fmt.Printf("stdout , %v \n" , err )
         return
     }else{
         fmt.Printf("out:  %v \n" , out )
@@ -50,6 +51,8 @@ func Test_key(t *testing.T){
 
     if out, err , e:= c.ExecCmd("ls /" , "" ) ; e!=nil {
         fmt.Printf("failed 2 , %v \n" , e )
+        fmt.Printf("stderr , %v \n" , err )
+
         return
     }else{
         fmt.Printf("out:  %v \n" , out )
@@ -59,6 +62,7 @@ func Test_key(t *testing.T){
 
     if out, err , e:= c.ExecCmd("ls /" , "" ) ; e!=nil {
         fmt.Printf("failed 2 , %v \n" , e )
+        fmt.Printf("stderr , %v \n" , err )
         return
     }else{
         fmt.Printf("out:  %v \n" , out )

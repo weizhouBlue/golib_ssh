@@ -243,7 +243,7 @@ func ( s *SshSession ) ExecCmd( cmd string , stdin string ) (  stdout , stderr s
 	}
 
 	if err := session.Run(cmd) ; err != nil {
-		return "" ,   "" , fmt.Errorf("failed to run command=%v , info=%v " , cmd,  err )
+		return m.String() ,   n.String() , fmt.Errorf("failed to run command=%v , info=%v ,stderr=%v " , cmd,  err , n.String() )
 	}
 
 	return m.String() , n.String()  , nil 
