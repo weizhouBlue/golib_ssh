@@ -4,7 +4,7 @@ import(
     ssh "github.com/weizhouBlue/golib_ssh"
     "fmt"
     "testing"
-
+    "time"
 )
 
 
@@ -19,9 +19,9 @@ func Test_pwd(t *testing.T){
         fmt.Printf("failed 1 , %v \n" , e )
         return
     }
+    defer c.Close()
 
-
-    if out, err , e:= c.ExecCmd("lss /" , "") ; e!=nil {
+    if out, err , e:= c.ExecCmd("ls /" , "") ; e!=nil {
         fmt.Printf("failed 2 , %v \n" , e )
         fmt.Printf("stdout , %v \n" , err )
         return
@@ -29,6 +29,20 @@ func Test_pwd(t *testing.T){
         fmt.Printf("out:  %v \n" , out )
         fmt.Printf("err:  %v \n" , err )
 
+    }
+
+
+
+
+    time.Sleep(20*time.Second)
+
+    if out, err , e:= c.ExecCmd("ls /" , "" ) ; e!=nil {
+        fmt.Printf("failed 2 , %v \n" , e )
+        fmt.Printf("stderr , %v \n" , err )
+        return
+    }else{
+        fmt.Printf("out:  %v \n" , out )
+        fmt.Printf("err:  %v \n" , err )
     }
 
 }
@@ -47,6 +61,7 @@ func Test_key(t *testing.T){
         fmt.Printf("failed 1 , %v \n" , e )
         return
     }
+    defer c.Close()
 
 
     if out, err , e:= c.ExecCmd("ls /" , "" ) ; e!=nil {
@@ -59,6 +74,7 @@ func Test_key(t *testing.T){
         fmt.Printf("err:  %v \n" , err )
     }
 
+    time.Sleep(10*time.Second)
 
     if out, err , e:= c.ExecCmd("ls /" , "" ) ; e!=nil {
         fmt.Printf("failed 2 , %v \n" , e )

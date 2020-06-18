@@ -234,6 +234,18 @@ func ( s *SshSession ) ExecCmd( cmd string , stdin string ) (  stdout , stderr s
 	}
 	defer session.Close()
 
+
+	// 开启 TTY, 虽然是没必要的，但是，如果不开，发现 server上会有一些 USERNAME@notty 的进程产生
+	// modes := ssh.TerminalModes{
+	//     ssh.ECHO:     0,   // disable echoing
+	//     ssh.TTY_OP_ISPEED: 14400, // input speed = 14.4kbaud
+	//     ssh.TTY_OP_OSPEED: 14400, // output speed = 14.4kbaud
+	// }
+	// if e := session.RequestPty("xterm", 80, 40, modes); e != nil {
+	//     return "", "" , fmt.Errorf("failed to create tty, info=%v " ,  err )
+	// }
+
+
 	var m , n  bytes.Buffer
 
 	session.Stdout = &m
@@ -251,4 +263,8 @@ func ( s *SshSession ) ExecCmd( cmd string , stdin string ) (  stdout , stderr s
 }
 
 
+func ( s *SshSession ) Close(  )  error {
 
+	return s.sshClient.Close()
+
+}
